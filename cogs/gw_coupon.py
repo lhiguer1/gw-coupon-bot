@@ -11,9 +11,14 @@ class GWCoupon(commands.Cog):
 
     @commands.command(name='gw_coupon')
     async def gw_coupon(self, ctx: commands.Context):
+        COUPON_DIR = 'coupons'
+        if not os.path.exists(COUPON_DIR):
+            os.mkdir(COUPON_DIR)
+        
         today = datetime.today()
+        coupon_path = os.path.join(COUPON_DIR, calendar.month_name[today.month].lower()+'.png')
 
-        coupon_png = discord.File(os.path.join('coupons', calendar.month_name[today.month].lower() + '.png'))
+        coupon_png = discord.File(coupon_path)
 
         await ctx.send('De marca baby!', file=coupon_png)
 
