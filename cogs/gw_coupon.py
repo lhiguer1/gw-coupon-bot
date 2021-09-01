@@ -3,6 +3,7 @@ import os
 import calendar
 from datetime import datetime
 from discord.ext import commands
+import gw_coupon_downloader
 
 class GWCoupon(commands.Cog):
     """Retrives Goodwill Coupons"""
@@ -11,16 +12,21 @@ class GWCoupon(commands.Cog):
 
     @commands.command(name='gw_coupon')
     async def gw_coupon(self, ctx: commands.Context):
-        COUPON_DIR = 'coupons'
+        COUPON_DIR = gw_coupon_downloader.COUPON_PATH
         if not os.path.exists(COUPON_DIR):
             os.mkdir(COUPON_DIR)
         
-        today = datetime.today()
-        coupon_path = os.path.join(COUPON_DIR, calendar.month_name[today.month].lower()+'.png')
-
-        coupon_png = discord.File(coupon_path)
-
-        await ctx.send('De marca baby!', file=coupon_png)
+        coupon_path = os.path.join(COUPON_DIR, calendar.month_name[datetime.today().month].lower()+'.png')
+        
+        if not os.path.isfile(coupon_path):
+            async with ctx.typing():
+                gw_coupon_downloader.download()
+        
+        try:
+            coupon_png = discord.File(coupon_path)
+            await ctx.send('De marca baby!', file=coupon_png)
+        except:
+            pass
 
 def setup(bot):
     bot.add_cog(GWCoupon(bot))

@@ -1,0 +1,3 @@
+[submodule "gw-coupon-downloader"]
+	path = gw-coupon-downloader
+	url = https://github.com/lhiguer1/gw-coupon-downloader.git
