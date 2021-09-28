@@ -10,7 +10,7 @@ class GWCoupon(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='gw_coupon')
+    @commands.command(name='gw_coupon', help="Get Goodwill coupon.")
     async def gw_coupon(self, ctx: commands.Context):
         COUPON_DIR = gw_coupon_downloader.COUPON_PATH
         if not os.path.exists(COUPON_DIR):
