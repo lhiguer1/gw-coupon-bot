@@ -20,7 +20,7 @@ docker run --rm -d gw_coupon_bot:latest
 git submodule update --init --recursive
 
 # venv setup
-python3 -m pip venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 
 # bot setup
